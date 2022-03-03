@@ -1,1 +1,23 @@
 <h1>chatroom</h1>
+
+<div id="user-hello"></div>
+
+{{ room_name|json_script:"room_name" }}
+<script>
+    const roomName = JSON.parse(document.getElementById('room_name').textContent);
+
+    const chatSocket = new WebSocket(
+        'ws://' + 
+        window.location.host + 
+        '/ws/chat/' + 
+        roomName +
+        '/'
+    );
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log(data);
+        document.querySelector('#user-hello').innerHTML = (data.tester)
+    }
+
+</script>

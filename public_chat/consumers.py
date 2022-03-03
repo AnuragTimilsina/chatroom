@@ -16,6 +16,8 @@ class ChatRoomConsumer(AsyncJsonWebsocketConsumer):
             self.channel_name
         )
 
+        await self.accept()
+
         # After the group is created,
         # We might want to send confirmation!
         await self.channel_layer.group_send(
